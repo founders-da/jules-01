@@ -3,52 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Bloom</title>
+    <title>Financial Dashboard</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Pixel Bloom</h1>
-    </header>
-
-    <main>
-        <section id="trailer">
-            <h2>Gameplay Trailer</h2>
-            <video controls width="100%">
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </section>
-
-        <section id="characters">
-            <h2>Meet the Creatures</h2>
-            <div class="character-grid">
-                <div class="character">
-                    <img src="https://placehold.co/150x150/a2c3a8/a2c3a8.png" alt="Lumi">
-                    <h3>Lumi</h3>
-                    <p>Lumi is a shy, glowing mushroom creature that illuminates the darkest caves. They say Lumi's light can help crops grow faster.</p>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head><body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>FinDash</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#">Dashboard</a></li>
+                    <li><a href="#">Transactions</a></li>
+                    <li><a href="#">Accounts</a></li>
+                    <li><a href="#">Budgets</a></li>
+                    <li><a href="#">Reports</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <input type="text" placeholder="Search...">
+                    <button class="add-transaction-btn">+ Add Transaction</button>
                 </div>
-                <div class="character">
-                    <img src="https://placehold.co/150x150/f7b58c/f7b58c.png" alt="Sparky">
-                    <h3>Sparky</h3>
-                    <p>Sparky is a mischievous firefly-like companion who loves to play pranks. Despite being a bit of a troublemaker, Sparky is incredibly loyal.</p>
+            </header>
+            <div class="cards-container">
+                <div class="card">
+                    <h3>Total Balance</h3>
+                    <p class="balance">$12,345.67</p>
                 </div>
-                <div class="character">
-                    <img src="https://placehold.co/150x150/8c96c8/8c96c8.png" alt="Mossy">
-                    <h3>Mossy</h3>
-                    <p>Mossy is a gentle giant, a forest spirit covered in soft moss. Mossy is a calm and wise presence, often found napping in sunbeams.</p>
+                <div class="card">
+                    <h3>Income</h3>
+                    <p class="income">$5,000.00</p>
+                </div>
+                <div class="card">
+                    <h3>Expenses</h3>
+                    <p class="expenses">-$2,543.21</p>
+                </div>
+                 <div class="card">
+                    <h3>Savings</h3>
+                    <p class="savings">$1,200.00</p>
                 </div>
             </div>
-        </section>
-
-        <section id="cta">
-            <h2>Wishlist on Steam!</h2>
-            <a href="https://store.steampowered.com/" class="steam-button" target="_blank">Wishlist Now</a>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Pixel Bloom. All rights reserved.</p>
-    </footer>
+            <div class="content-row">
+                <div class="transactions-section">
+                    <h2>Recent Transactions</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Spotify Subscription</td>
+                                <td>28 Aug, 2024</td>
+                                <td class="expense">-$10.99</td>
+                            </tr>
+                            <tr>
+                                <td>Paycheck</td>
+                                <td>25 Aug, 2024</td>
+                                <td class="income">+$2,500.00</td>
+                            </tr>
+                            <tr>
+                                <td>Groceries</td>
+                                <td>23 Aug, 2024</td>
+                                <td class="expense">-$75.43</td>
+                            </tr>
+                             <tr>
+                                <td>Dinner with Friends</td>
+                                <td>22 Aug, 2024</td>
+                                <td class="expense">-$54.50</td>
+                            </tr>
+                            <tr>
+                                <td>Online Shopping</td>
+                                <td>21 Aug, 2024</td>
+                                <td class="expense">-$123.45</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="chart-section">
+                    <h2>Spending by Category</h2>
+                    <canvas id="spendingChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const ctx = document.getElementById('spendingChart').getContext('2d');
+        const spendingChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Groceries', 'Subscriptions', 'Dining Out', 'Shopping', 'Utilities'],
+                datasets: [{
+                    label: 'Spending',
+                    data: [350, 80, 220, 400, 150],
+                    backgroundColor: [
+                        '#ff6384',
+                        '#36a2eb',
+                        '#ffce56',
+                        '#4bc0c0',
+                        '#9966ff'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
